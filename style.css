@@ -182,9 +182,24 @@ body {
 
 /* --- HERO GALLERY --- */
 .hero-gallery {
+    image1
     flex: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+        "image1 image2"
+        "image3 image4";
+        image1 {
+            grid-area: image1;
+            grid-template-columns: 1.5fr 1fr;
+            grid-template-rows: repeat(2, 1fr);
+        } 
+        image2 {
+            grid-area: image2;
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(2, 1fr);
+        }
     gap: 20px;
 }
 
@@ -278,7 +293,7 @@ body {
 
     .primary-navigation ul {
         flex-direction: column;
-        gap: 25px;
+        gap: 20px;
     }
 
     .header-actions {
@@ -337,7 +352,6 @@ body {
 
 .section-header {
     text-align: center;
-    margin-bottom: 80px;
 }
 
 .tag {
@@ -354,7 +368,7 @@ body {
 .section-header h2 {
     font-size: 2.5rem;
     color: var(--dark-blue);
-    margin-bottom: 10px;
+
 }
 
 .section-header .subtitle {
@@ -394,7 +408,7 @@ body {
 }
 
 .challenge-image img {
-    max-width: 100%;
+    max-width: 60%;
     height: auto;
     border-radius: var(--border-radius);
     position: relative;
@@ -409,8 +423,8 @@ body {
     left: -20px;
     top: 50%;
     transform: translateY(-50%);
-    width: 150%;
-    height: 150%;
+    width: 50%;
+    height: 50%;
     
     /* This creates the three concentric semi-circles */
     border: 2px solid #e1e9f5;
@@ -443,6 +457,7 @@ body {
 
     .challenge-text p {
         margin: 0 auto;
+        
     }
 
     .challenge-image::before {
@@ -472,11 +487,11 @@ body {
     z-index: 1;
     /* Position on the right side */
     right: -20px;
-    left: auto; /* Unset the left property */
+    left:20px; /* Unset the left property */
     top: 50%;
     transform: translateY(-50%);
-    width: 150%;
-    height: 150%;
+    width: 50%;
+    height: 50%;
     
     border: 2px solid #e1e9f5;
     border-right-color: transparent; /* Unset right border for clipping */
@@ -519,15 +534,22 @@ body {
 /* --- METRICS SECTION --- */
 .metrics-section {
     background-color: var(--primary-blue);
-    padding: 100px 0;
+    position: relative;
+    padding: 20px 0;
     color: white;
-
-    /* Repeating arrow background pattern */
-    /* SVG is URL-encoded to work in CSS */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M18.5 4.5l-5 5h3.5v12h3v-12h3.5l-5-5zm12 12h-3.5v-12h-3v12h-3.5l5 5 5-5z' fill-opacity='.1' fill='%23FFF'/%3E%3C/svg%3E");
-    background-size: 50px 50px;
+    overflow: hidden;  
 }
+.metrics-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("asset/bg.png");
+      background-size: cover;
+  background-position: center;
 
+    opacity: 0.1; /* Makes the pattern subtle */
+    z-index: 0; /* Places it behind the content */
+}
 /* Overrides for the header to work on a dark background */
 .metrics-section .section-header {
     margin-bottom: 60px;
@@ -550,6 +572,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    
 }
 
 .metric-card {
@@ -562,6 +585,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .stat-number {
@@ -616,8 +640,11 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
-}
 
+}
+.feature-card-image1 {
+background: lightgray -171.052px -190.68px / 185.766% 174.914% no-repeat;    
+}
 .feature-card-image {
     margin-bottom: 30px;
     /* Allows the card content to grow and fill space if needed */
@@ -1027,3 +1054,43 @@ body {
         text-align: center;
     }
 }
+/* --- 1. Global Styles & Variables --- */
+:root {
+    --primary-blue: #0052cc;
+    --dark-blue: #071e48;
+    --light-grey: #f0f2f5;
+    --text-color: #333;
+    --text-light: #555;
+    --background-color: #ffffff;
+    --grid-line-color: #eef1f6;
+    --border-radius: 24px;
+}
+
+html, body {
+    /* This is the key change to prevent horizontal scrolling */
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    /* Subtle background grid */
+    background-image:
+        linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    line-height: 1.6;
+}
+
+/* ... the rest of your CSS file remains the same ... */
